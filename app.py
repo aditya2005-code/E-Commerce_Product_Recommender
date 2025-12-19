@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from pathlib import Path
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -10,13 +11,18 @@ from sklearn.metrics.pairwise import cosine_similarity
 st.set_page_config(page_title="E-Commerce Recommender System", layout="wide")
 st.title("🛒 E-Commerce Product Recommendation System")
 
-# ---------------------------
-# Data Loading
-# ---------------------------
+# --------------------------------------------------
+# Resolve Dataset Path (WORKS LOCALLY + CLOUD)
+# --------------------------------------------------
+BASE_DIR = Path(__file__).resolve().parent
+DATA_PATH = BASE_DIR / "DataSet" / "clean_data.csv"
+
+# --------------------------------------------------
+# Load Data
+# --------------------------------------------------
 @st.cache_data
 def load_data():
-    # Update path if required
-    df = pd.read_csv("D:\Machine-Learning-Projects\E-Commerce_Product_Recommeder\DataSet\clean_data.csv")
+    df = pd.read_csv(DATA_PATH)
     return df
 
 train = load_data()
